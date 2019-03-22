@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,6 +23,7 @@ public class MultiThread extends Thread {
     ObjectInputStream fromClient;
     ObjectOutputStream toClient;
     int clientID;
+    
     public MultiThread(Socket s, ObjectInputStream fromClient, ObjectOutputStream toClient, int clientID) throws IOException{
         this.s = s;
         this.fromClient =fromClient;
@@ -31,23 +33,37 @@ public class MultiThread extends Thread {
     @Override
     public void run(){
         while (true) {
-            String message;
+            String choice;
             try {
                 
                 System.out.println("Connection request from Client "+clientID+" recieved");
-                message = this.fromClient.readUTF();
-                if(message.equals("Yes")||message.equals("yes")||message.equals("YES")){
+                this.toClient.writeUTF("Hello Client "+clientID);
+                this.toClient.flush();
+                this.toClient.writeUTF("What type of grid do you want to play in? Please write the answer in x and y dimensions seperately");
+                this.toClient.flush();
+                int x = fromClient.readInt();
+                System.out.println(x);
+                int y = fromClient.readInt();
+                System.out.println(y);
+                int[][] grid = new int[x][y];
+                System.out.println("Going to create the grid");
+                for (int i = 0; i < grid.length; i++) {
+                    for (int j = 0; j < grid[i].length; j++) {
+                        grid[i][j]=0;
+                    }
+                } 
+                this.toClient.writeObject(grid);
+                this.toClient.flush();
+                System.out.println("Grid sent to client "+clientID);
+                
+                choice = this.fromClient.readUTF();
+                if(choice.equals("Yes")||choice.equals("yes")||choice.equals("YES")){
                     System.out.println("Client "+clientID+ this.s+" request to exit accepted");
                     System.out.println("Closing connection");
                     this.s.close();
                     System.out.println("Connection closed");
                     break;
                 }
-
-                System.out.println("Client "+clientID+" says " + message);
-                this.toClient.writeUTF("Hello Client "+clientID);
-                this.toClient.flush();
-                System.out.println("Message sent to Client "+clientID);
                 
             } catch (Exception e) {
                 System.err.println(e.toString());
