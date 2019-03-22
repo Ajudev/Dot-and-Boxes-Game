@@ -9,6 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Scanner;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -36,11 +37,27 @@ public class DotsBoxesGame2 extends Application {
             output = new ObjectOutputStream(socket.getOutputStream());
             input = new ObjectInputStream(socket.getInputStream());
             while (true) {
-                output.writeUTF("Hello World from Client");
-                System.out.println("Message sent to server");
-                output.flush();
+                //output.writeUTF("Hello World from Client");
+                //System.out.println("Message sent to server");
+                //output.flush();
                 String message = input.readUTF();
                 System.out.println("Server says " + message);
+                String message2 = input.readUTF();
+                System.out.println("Server says "+message2);
+                int x = s.nextInt();
+                int y = s.nextInt();
+                System.out.println(x);
+                output.writeInt(x);
+                output.flush();
+                output.writeInt(y);
+                output.flush();
+                int[][] grid = (int[][]) input.readObject();
+                for(int i=0;i<grid.length;i++){
+                    for(int j=0;j<grid[i].length;j++){
+                        System.out.print(grid[i][j]);
+                    }
+                    System.out.println();
+                }
                 System.out.println("Do you want to quit: ");
                 String choice = s.next();
                 output.writeUTF(choice);
