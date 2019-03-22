@@ -33,6 +33,7 @@ public class Server {
                 ObjectOutputStream toClient = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream fromClient = new ObjectInputStream(socket.getInputStream());
                 System.out.println("Assigning client to a thread");
+                System.out.println("Client "+clientID+" has joined the game");
                 MultiThread t = new MultiThread(socket, fromClient, toClient, clientID);
                 t.start();
                 clientID+=1;
