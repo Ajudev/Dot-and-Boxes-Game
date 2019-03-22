@@ -34,7 +34,7 @@ public class MultiThread extends Thread {
             String message;
             try {
                 
-                //System.out.println("Connection request from Client "+clientID+" recieved");
+                System.out.println("Connection request from Client "+clientID+" recieved");
                 message = this.fromClient.readUTF();
                 if(message.equals("Yes")||message.equals("yes")||message.equals("YES")){
                     System.out.println("Client "+clientID+ this.s+" request to exit accepted");
