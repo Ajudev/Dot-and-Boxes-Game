@@ -58,7 +58,7 @@ public class DotsBoxesGame2 extends Application {
         catch(Exception e){
             System.err.println(e.toString());
         }       
-        Button btn = new Button();
+        /*Button btn = new Button();
         btn.setText("Say 'Hello World'");
         btn.setOnAction(new EventHandler<ActionEvent>() {
             
@@ -75,7 +75,7 @@ public class DotsBoxesGame2 extends Application {
         
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);
-        primaryStage.show();
+        primaryStage.show();*/
     }
 
     /**
