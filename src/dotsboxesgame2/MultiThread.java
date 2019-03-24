@@ -54,7 +54,7 @@ public class MultiThread extends Thread {
                 } 
                 this.toClient.writeObject(grid);
                 this.toClient.flush();
-                System.out.println("Grid sent to client "+clientID);
+                System.out.println("Grid sent to all clients in game ");
                 
                 choice = this.fromClient.readUTF();
                 if(choice.equals("Yes")||choice.equals("yes")||choice.equals("YES")){
@@ -87,5 +87,6 @@ public class MultiThread extends Thread {
             e.printStackTrace();
         }
     }
+    
     
 }
