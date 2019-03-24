@@ -37,9 +37,6 @@ public class DotsBoxesGame2 extends Application {
             output = new ObjectOutputStream(socket.getOutputStream());
             input = new ObjectInputStream(socket.getInputStream());
             while (true) {
-                //output.writeUTF("Hello World from Client");
-                //System.out.println("Message sent to server");
-                //output.flush();
                 String message = input.readUTF();
                 System.out.println("Server says " + message);
                 String message2 = input.readUTF();
