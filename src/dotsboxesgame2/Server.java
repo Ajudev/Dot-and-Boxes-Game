@@ -11,6 +11,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,9 +27,9 @@ public class Server {
         System.out.println("Listening at port 8000");
         ServerSocket serverSocket = new ServerSocket(port);
         int clientID=1;
+        //ExecutorService pool = Executors.newFixedThreadPool(10); 
         while (true) {
             Socket socket = null;
-            try {
                 socket = serverSocket.accept();
                 System.out.println("Connection to server accepted");
                 System.out.println("A new client is connected: "+socket);
@@ -37,10 +40,6 @@ public class Server {
                 MultiThread t = new MultiThread(socket, fromClient, toClient, clientID);
                 t.start();
                 clientID+=1;
-            } catch (FileNotFoundException ex) {
-                socket.close();
-                ex.printStackTrace();
-            }
         }
         /*while(true){
             System.out.println("Listening at port 8000");
@@ -55,6 +54,7 @@ public class Server {
             socket.close();
         }  */  
     }
+    
     
 }
 
