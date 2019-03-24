@@ -30,16 +30,16 @@ public class Server {
         //ExecutorService pool = Executors.newFixedThreadPool(10); 
         while (true) {
             Socket socket = null;
-                socket = serverSocket.accept();
-                System.out.println("Connection to server accepted");
-                System.out.println("A new client is connected: "+socket);
-                ObjectOutputStream toClient = new ObjectOutputStream(socket.getOutputStream());
-                ObjectInputStream fromClient = new ObjectInputStream(socket.getInputStream());
-                System.out.println("Assigning client to a thread");
-                System.out.println("Client "+clientID+" has joined the game");
-                MultiThread t = new MultiThread(socket, fromClient, toClient, clientID);
-                t.start();
-                clientID+=1;
+            socket = serverSocket.accept();
+            System.out.println("Connection to server accepted");
+            System.out.println("A new client is connected: " + socket);
+            ObjectOutputStream toClient = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream fromClient = new ObjectInputStream(socket.getInputStream());
+            System.out.println("Assigning client to a thread");
+            System.out.println("Client " + clientID + " has joined the game");
+            MultiThread t = new MultiThread(socket, fromClient, toClient, clientID);
+            t.start();
+            clientID += 1;
         }
         /*while(true){
             System.out.println("Listening at port 8000");
